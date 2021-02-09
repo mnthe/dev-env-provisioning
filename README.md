@@ -10,6 +10,14 @@ bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/ma
 chsh -s /bin/zsh
 ```
 
+### Windows
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-windows.ps1'))
+```
+
 ## Tools
 
 ### Development Tools
@@ -17,7 +25,9 @@ chsh -s /bin/zsh
 - [oh-my-zsh](https://ohmyz.sh/#install)
 - [git](https://git-scm.com/)
 - [vscode](https://code.visualstudio.com/)
+- TODO: [docker]()
 - TODO: [terraform]()
+- TODO: [packer]()
 - TODO: [kubectl]()
 - TODO: [aws-cli]()
 
@@ -25,6 +35,7 @@ chsh -s /bin/zsh
 
 - Node.js
 - Go
+- TODO: python3
 
 ### Windows Extras
 
