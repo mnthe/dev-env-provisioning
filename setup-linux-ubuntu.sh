@@ -39,3 +39,10 @@ rm -f go$GOLANG_VER.linux-amd64.tar.gz
 curl -sL https://deb.nodesource.com/setup_$NODE_VER | sudo -E bash -
 sudo apt-get install -y nodejs
 
+# Validation
+git --version
+git lfs --version
+code --version
+go version
+node --version
+
