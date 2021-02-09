@@ -18,11 +18,10 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-windows.ps1'))
 ```
 
-## Tools
+## Common Tools
 
 ### Development Tools
 
-- [oh-my-zsh](https://ohmyz.sh/#install)
 - [git](https://git-scm.com/)
 - [vscode](https://code.visualstudio.com/)
 - TODO: [docker]()
@@ -35,7 +34,16 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 - Node.js
 - Go
+- TODO: .Net
 - TODO: python3
+
+## Extra Tools
+
+### Linux
+
+- [oh-my-zsh](https://ohmyz.sh/#install)
+
+### MacOS
 
 ### Windows Extras
 
