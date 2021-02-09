@@ -11,10 +11,10 @@ grep -qxF 'source ~/.common_profile' ~/.bashrc || echo 'source ~/.common_profile
 # Install Tools
 ## Install git
 sudo apt update && sudo apt install -y git git-lfs
-mv .gitconfig ~/.gitconfig
+curl -so ~/.gitconfig https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig
 
 ## Install vscode
-curl -o vscode.deb -L "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 sudo apt install ./vscode.deb
 rm -f vscode.deb
 
@@ -27,7 +27,7 @@ sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
 # Install Languages
 
 ## Install go-lang
-curl -OL https://golang.org/dl/go$GOLANG_VER.linux-amd64.tar.gz
+curl -sOL https://golang.org/dl/go$GOLANG_VER.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go$GOLANG_VER.linux-amd64.tar.gz
 grep -qxF 'export PATH=$PATH:/usr/local/go/bin' ~/.common_profile || echo 'export PATH=$PATH:/usr/local/go/bin' >>  ~/.common_profile
 grep -qxF 'export GOPATH=$HOME/workspace' ~/.common_profile || echo 'export GOPATH=$HOME/workspace' >>  ~/.common_profile

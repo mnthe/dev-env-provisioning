@@ -6,7 +6,7 @@
 ### Linux
 
 ```bash
-sudo bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
+bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
 chsh -s /bin/zsh
 ```
 
