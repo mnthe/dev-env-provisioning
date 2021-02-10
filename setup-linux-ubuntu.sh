@@ -24,8 +24,6 @@ function install_zipped_binary {
     rm -f tmp
 }
 
-GOLANG_VER=1.15.7
-
 # Create Workspace & Setup Profile
 cd ~
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
@@ -107,11 +105,14 @@ install_zipped_binary packer https://releases.hashicorp.com/packer/1.6.6/packer_
 git clone https://github.com/syndbg/goenv.git ~/.goenv
 export GOENV_ROOT="$HOME/.goenv"
 export PATH="$GOENV_ROOT/bin:$PATH"
-insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.zshrc
-insert_line_only_once 'export PATH="$GOENV_ROOT/bin:$PATH"' ~/.zshrc
+insert_line_only_once 'export GOENV_DISABLE_GOPATH=1' ~/.common_profile
+insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
+insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
+insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
+insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
+GOLANG_VER=$(goenv versions --bare | tail -n1)
 goenv install $GOLANG_VER
 goenv global $GOLANG_VER
-
 
 ## Install Node.js via nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
@@ -123,6 +124,17 @@ nvm install --lts
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
+# TODO: Install using pyenv
+# git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+# cd ~/.pyenv && src/configure && make -C src
+# insert_line_only_once 'export PYENV_ROOT="$HOME/.pyenv"' ~/.common_profile
+# insert_line_only_once 'export PATH="$PYENV_ROOT/bin:$PATH"' ~/.common_profile
+# insert_line_only_once 'source ~/.pyenv_profile' ~/.common_profile
+# echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' > ~/.pyenv_profile
+# source ~/.pyenv_profile
+# pyenv install $(pyenv install --list | grep -v - | grep -v b | tail -1)
+
+
 
 # Shell Completion
 kubectl completion zsh > ~/.kube.zsh.completion
