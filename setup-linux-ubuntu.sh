@@ -1,13 +1,18 @@
 #!/bin/bash
 
+# insert_line_only_once $line $file
+function insert_line_only_once {
+    grep -qxF $1 $2 || echo $1 >>  $2
+}
+
 NODE_VER=14.x
 GOLANG_VER=1.15.8
 
 # Create Workspace & Setup Profile
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
 touch ~/.common_profile
-grep -qxF 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile || echo 'export PATH=$PATH:$HOME/workspace/bin' >>  ~/.common_profile
-grep -qxF 'source ~/.common_profile' ~/.bashrc || echo 'source ~/.common_profile' >>  ~/.bashrc
+insert_line_only_once 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile
+insert_line_only_once 'source ~/.common_profile' ~/.bashrc
 
 # Install Tools
 ## Install git
@@ -31,16 +36,17 @@ fi
 sudo apt install -y zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
-grep -qxF 'source ~/.common_profile' ~/.zshrc || echo 'source ~/.common_profile' >>  ~/.zshrc
+insert_line_only_once 'source ~/.common_profile' ~/.zshrc
+
 
 # Install Languages
 
 ## Install go-lang
 curl -sOL https://golang.org/dl/go$GOLANG_VER.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go$GOLANG_VER.linux-amd64.tar.gz
-grep -qxF 'export PATH=$PATH:/usr/local/go/bin' ~/.common_profile || echo 'export PATH=$PATH:/usr/local/go/bin' >>  ~/.common_profile
-grep -qxF 'export GOPATH=$HOME/workspace' ~/.common_profile || echo 'export GOPATH=$HOME/workspace' >>  ~/.common_profile
-grep -qxF 'export GOBIN=$HOME/workspace/bin' ~/.common_profile || echo 'export GOBIN=$HOME/workspace/bin' >>  ~/.common_profile
+insert_line_only_once 'export PATH=$PATH:/usr/local/go/bin' ~/.common_profile
+insert_line_only_once 'export GOPATH=$HOME/workspace' ~/.common_profile
+insert_line_only_once 'export GOBIN=$HOME/workspace/bin' ~/.common_profile
 source ~/.common_profile
 rm -f go$GOLANG_VER.linux-amd64.tar.gz
 
