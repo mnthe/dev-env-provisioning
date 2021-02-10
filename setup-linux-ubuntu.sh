@@ -29,9 +29,9 @@ fi
 
 ## Install oh-my-zsh
 sudo apt install -y zsh
-grep -qxF 'source ~/.common_profile' ~/.zshrc || echo 'source ~/.common_profile' >>  ~/.zshrc
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
+grep -qxF 'source ~/.common_profile' ~/.zshrc || echo 'source ~/.common_profile' >>  ~/.zshrc
 
 # Install Languages
 

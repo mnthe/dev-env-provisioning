@@ -7,14 +7,14 @@
 
 ```bash
 bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
-chsh -s /bin/zsh
+chsh -s /bin/zsh # Change default shell to zsh
 ```
 
 ### Windows
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) # Install chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-windows.ps1'))
 ```
 
