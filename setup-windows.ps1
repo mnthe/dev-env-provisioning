@@ -7,11 +7,16 @@ choco install slack --yes --force
 choco install office365business --yes --force
 choco install discord --yes --force
 
-Write-Host "Install Line..."
+# Install Line
 $LINE = "$HOME\Downloads\LineInst.exe"
 Invoke-WebRequest -Uri https://desktop.line-scdn.net/win/new/LineInst.exe -OutFile $LINE
 Start-Process -Wait -FilePath $LINE -ArgumentList "/S"
 Remove-Item $LINE
+
+# Install Kakaotalk
+$KAKAO_TALK = "$HOME\Downloads\KakaoTalk_Setup.exe"
+Invoke-WebRequest -Uri https://app-pc.kakaocdn.net/talk/win32/KakaoTalk_Setup.exe -OutFile $KAKAO_TALK
+Start-Process -Wait -FilePath $KAKAO_TALK -ArgumentList "/S"
 
 # Install Development Tools
 choco install git --yes --force

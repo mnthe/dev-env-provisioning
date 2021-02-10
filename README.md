@@ -24,18 +24,18 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 - [git](https://git-scm.com/)
 - [vscode](https://code.visualstudio.com/)
-- TODO: [docker]()
-- TODO: [terraform]()
-- TODO: [packer]()
-- TODO: [kubectl]()
-- TODO: [aws-cli]()
+- [docker](https://docs.docker.com/)
+- [terraform](https://www.terraform.io/)
+- [packer](https://www.packer.io/)
+- [vault](https://www.vaultproject.io/)
+- [kubectl](https://kubernetes.io/ko/docs/reference/kubectl/overview/)
+- [aws-cli2](https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/install-cliv2.html)
 
 ### Languages
 
-- Node.js
-- Go
-- TODO: .Net
-- TODO: python3
+- [Node.js](https://nodejs.org/ko/)
+- [Golang](https://golang.org/)
+- [python](https://www.python.org/)
 
 ## Extra Tools
 
@@ -46,4 +46,16 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 ### MacOS
 
 ### Windows Extras
+
+- [lens]()
+- [postman]()
+- [1password]()
+- [chrome]()
+- [steam]()
+- [slack]()
+- [office365]()
+- [discord]()
+- [line]()
+- [kakaotalk]()
+- [vs2019]()
 
