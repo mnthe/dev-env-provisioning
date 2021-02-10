@@ -28,6 +28,7 @@ NODE_VER=14.x
 GOLANG_VER=1.15.8
 
 # Create Workspace & Setup Profile
+cd ~
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
 touch ~/.common_profile
 insert_line_only_once 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile
@@ -66,13 +67,13 @@ insert_line_only_once 'source ~/.common_profile' ~/.zshrc
 ## Install kubectl
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
 ### Install Krew
-set -x; cd "$(mktemp -d)" &&
+cd "$(mktemp -d)" &&
     curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
     tar zxvf krew.tar.gz &&
     KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/' -e 's/aarch64$/arm64/')" &&
-    "$KREW" install krew
+    "$KREW" install krew &&
+    cd ~
 insert_line_only_once 'export PATH=$PATH:$HOME/.krew/bin' ~/.common_profile
-
 
 ## Install aws-cli2
 curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -94,7 +95,6 @@ install_zipped_binary vault https://releases.hashicorp.com/vault/1.6.2/vault_1.6
 ## Install packer
 install_zipped_binary packer https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
 
-
 # Install Languages
 
 ## Install go-lang
@@ -115,3 +115,5 @@ sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
 
+# Done
+source ~/.common_profile
