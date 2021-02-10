@@ -24,6 +24,8 @@ function install_zipped_binary {
     rm -f tmp
 }
 
+GOLANG_VER=1.15.7
+
 # Create Workspace & Setup Profile
 cd ~
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
@@ -104,13 +106,12 @@ install_zipped_binary packer https://releases.hashicorp.com/packer/1.6.6/packer_
 ## Install go-lang via goenv
 git clone https://github.com/syndbg/goenv.git ~/.goenv
 export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
+export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"
 insert_line_only_once 'export GOENV_DISABLE_GOPATH=1' ~/.common_profile
 insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
-insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
-GOLANG_VER=$(goenv versions --bare | tail -n1)
+insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
 goenv install $GOLANG_VER
 goenv global $GOLANG_VER
 
