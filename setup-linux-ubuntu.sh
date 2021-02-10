@@ -63,6 +63,9 @@ sudo apt install -y zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
 insert_line_only_once 'source ~/.common_profile' ~/.zshrc
+### install powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.zshrc
 
 ## Install kubectl
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl

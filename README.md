@@ -21,7 +21,12 @@ bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/ma
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) # Install chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-windows.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/install_fonts_windows.ps1'))
 ```
+
+## Extra
+
+- [Powerline Font](https://github.com/microsoft/cascadia-code/releases)
 
 ## Common Tools
 
