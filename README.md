@@ -10,6 +10,11 @@ bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/ma
 chsh -s /bin/zsh # Change default shell to zsh
 ```
 
+WSL을 사용할 때 credential들을 쉽게 쓰고 싶으면 아래 스크립트 추가 실행
+```bash
+bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/wsl_link_configs.sh)
+```
+
 ### Windows
 
 ```powershell
