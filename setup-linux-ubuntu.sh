@@ -24,8 +24,7 @@ function install_zipped_binary {
     rm -f tmp
 }
 
-NODE_VER=14.x
-GOLANG_VER=1.15.8
+GOLANG_VER=1.15.7
 
 # Create Workspace & Setup Profile
 cd ~
@@ -63,9 +62,13 @@ sudo apt install -y zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
 insert_line_only_once 'source ~/.common_profile' ~/.zshrc
-### install powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
+### Install powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.zshrc
+### Install Plugins
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+sed -i 's/plugins=([a-z]*)/plugins=(git docker zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
@@ -100,23 +103,32 @@ install_zipped_binary packer https://releases.hashicorp.com/packer/1.6.6/packer_
 
 # Install Languages
 
-## Install go-lang
-curl -sOL https://golang.org/dl/go$GOLANG_VER.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go$GOLANG_VER.linux-amd64.tar.gz
-insert_line_only_once 'export PATH=$PATH:/usr/local/go/bin' ~/.common_profile
-insert_line_only_once 'export GOPATH=$HOME/workspace' ~/.common_profile
-insert_line_only_once 'export GOBIN=$HOME/workspace/bin' ~/.common_profile
-source ~/.common_profile
-rm -f go$GOLANG_VER.linux-amd64.tar.gz
+## Install go-lang via goenv
+git clone https://github.com/syndbg/goenv.git ~/.goenv
+export GOENV_ROOT="$HOME/.goenv"
+export PATH="$GOENV_ROOT/bin:$PATH"
+insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.zshrc
+insert_line_only_once 'export PATH="$GOENV_ROOT/bin:$PATH"' ~/.zshrc
+goenv install $GOLANG_VER
+goenv global $GOLANG_VER
 
-## Install Node.js
-curl -sL https://deb.nodesource.com/setup_$NODE_VER | sudo -E bash -
-sudo apt-get install -y nodejs
+
+## Install Node.js via nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+nvm install --lts
 
 ## Install python
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
+
+# Shell Completion
+kubectl completion zsh > ~/.kube.zsh.completion
+insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
+
+# Aliases
+insert_line_only_once 'alias k=kubectl' ~/.common_profile
 
 # Done
 source ~/.common_profile
