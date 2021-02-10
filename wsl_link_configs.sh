@@ -9,10 +9,10 @@ if [[ ! -d "/mnt/c/Users/$WIN_USERNAME" ]]; then
 fi
 
 ## Copy ssh credentials
-sudo cp "/mnt/c/Users/$WIN_USERNAME/.ssh/*" ~/.ssh/
+sudo cp -r "/mnt/c/Users/$WIN_USERNAME/.ssh/" ~/
 sudo chmod 400 ~/.ssh/*
-sudo chown $USERNAME:$USERNAME ~/.ssh/*
+sudo chown -R $USERNAME:$USERNAME ~/.ssh
 
 ## Create symlinks
-ln -s "/mnt/c/Users/$WIN_USERNAME/.aws" ~/.aws
-ln -s "/mnt/c/Users/$WIN_USERNAME/.kube" ~/.kube
+ln -fs "/mnt/c/Users/$WIN_USERNAME/.aws" ~/.aws
+ln -fs "/mnt/c/Users/$WIN_USERNAME/.kube" ~/.kube
