@@ -5,6 +5,7 @@
 
 ### Linux
 
+powerlevel10k를 쓰기 위해서는 `DejaVuSansMonoPowerline NF` 폰트를 사용해야함
 ```bash
 bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
 chsh -s /bin/zsh # Change default shell to zsh
