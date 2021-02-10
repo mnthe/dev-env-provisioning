@@ -135,14 +135,14 @@ insert_line_only_once 'alias pip=pip3' ~/.common_profile
 # source ~/.pyenv_profile
 # pyenv install $(pyenv install --list | grep -v - | grep -v b | tail -1)
 
-
-
 # Shell Completion
 kubectl completion zsh > ~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
 # Aliases
+insert_line_only_once 'alias c=clear' ~/.common_profile
 insert_line_only_once 'alias k=kubectl' ~/.common_profile
+insert_line_only_once 'alias apt="sudo apt-get"' ~/.common_profile
 
 # Done
 source ~/.common_profile
