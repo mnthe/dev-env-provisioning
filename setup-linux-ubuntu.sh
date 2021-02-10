@@ -14,10 +14,18 @@ grep -qxF 'source ~/.common_profile' ~/.bashrc || echo 'source ~/.common_profile
 sudo apt update && sudo apt install -y git git-lfs
 curl -so ~/.gitconfig https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig
 
-## Install vscode
+# Install vscode
+if [[ $(cat /proc/version) =~ "microsoft" ]]; then
+    if [[ $(command -v code) =~ "/mnt/" ]]; then
+    code --version # Prevent to execute code gui
+    else
+    echo "VSCode not installed on Windows"
+    fi
+else
 curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
 sudo apt install -y ./vscode.deb
 rm -f vscode.deb
+fi
 
 ## Install oh-my-zsh
 sudo apt install -y zsh
