@@ -14,5 +14,7 @@ sudo chmod 400 ~/.ssh/*
 sudo chown -R $USERNAME:$USERNAME ~/.ssh
 
 ## Create symlinks
+rm -rf ~/.aws
 ln -fs "/mnt/c/Users/$WIN_USERNAME/.aws" ~/.aws
+rm -rf ~/.kube
 ln -fs "/mnt/c/Users/$WIN_USERNAME/.kube" ~/.kube
