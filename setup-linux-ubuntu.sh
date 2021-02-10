@@ -16,7 +16,7 @@ curl -so ~/.gitconfig https://raw.githubusercontent.com/mnthe/dev-env-provisioni
 
 ## Install vscode
 curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-sudo apt install ./vscode.deb
+sudo apt install -y ./vscode.deb
 rm -f vscode.deb
 
 ## Install oh-my-zsh
