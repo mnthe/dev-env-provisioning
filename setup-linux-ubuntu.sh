@@ -5,6 +5,7 @@ GOLANG_VER=1.15.8
 
 # Create Workspace & Setup Profile
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
+touch ~/.common_profile
 grep -qxF 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile || echo 'export PATH=$PATH:$HOME/workspace/bin' >>  ~/.common_profile
 grep -qxF 'source ~/.common_profile' ~/.bashrc || echo 'source ~/.common_profile' >>  ~/.bashrc
 
