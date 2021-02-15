@@ -16,12 +16,8 @@
 	stash-all = stash save --include-untracked
 	# git log(커밋 히스토리)를 터미널에 이쁘게 보여줌
 	l = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(red)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-	# git push 시 origin에 브랜치가 없으면 git push -u origin / 있으면 git push 로 알아서 해주기
-	pu = "!f() { \
-            [[ $(git config \"branch.$(git symbolic-ref --short HEAD).merge\") = '' ]] && \
-            git push -u origin $(git symbolic-ref --short HEAD) $@ || \
-            git push $@; \
-       }; f"
+	# 현재 브랜치와 동일한 이름으로 git push origin
+	pu = !git push origin `git branch --show-current`
     # git rebase 시 origin fetch 후 origin 기준으로 rebase 하기
     ro = "!f() { git fetch && git rebase origin/$@; }; f"
     # git ro {branch} + git pu => 현재 브랜치를 origin/{branch}에 rebase 후 remote에 push
