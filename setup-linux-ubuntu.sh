@@ -101,6 +101,12 @@ install_zipped_binary vault https://releases.hashicorp.com/vault/1.6.2/vault_1.6
 ## Install packer
 install_zipped_binary packer https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
 
+## Install helm
+curl -fsSL -o ~/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 &&
+    chmod 700 ~/get_helm.sh &&
+    ~/get_helm.sh
+rm -f ~/get_helm.sh
+
 # Install Languages
 
 ## Install go-lang via goenv
