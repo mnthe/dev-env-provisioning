@@ -68,7 +68,8 @@ sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.
 ### Install Plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-sed -i 's/plugins=([a-z]*)/plugins=(git docker zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
+git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
+sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
