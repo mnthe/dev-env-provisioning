@@ -24,8 +24,6 @@ function install_zipped_binary {
     rm -f tmp
 }
 
-GOLANG_VER=1.15.7
-
 # Create Workspace & Setup Profile
 cd ~
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
@@ -119,8 +117,9 @@ insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
-goenv install $GOLANG_VER
-goenv global $GOLANG_VER
+goenv install 1.15.8
+goenv install 1.16.0
+goenv global 1.16.0
 
 ## Install Node.js via nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
