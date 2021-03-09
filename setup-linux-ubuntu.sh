@@ -93,6 +93,7 @@ install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.c
 install_zipped_binary terraform14 https://releases.hashicorp.com/terraform/0.14.6/terraform_0.14.6_linux_amd64.zip terraform
 install_zipped_binary terraform13 https://releases.hashicorp.com/terraform/0.13.6/terraform_0.13.6_linux_amd64.zip terraform
 install_zipped_binary terraform12 https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip terraform
+install_binary terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.28.8/terragrunt_linux_amd64
 
 ## Install vault
 install_zipped_binary vault https://releases.hashicorp.com/vault/1.6.2/vault_1.6.2_linux_amd64.zip
@@ -150,6 +151,8 @@ insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
 # Aliases
 insert_line_only_once 'alias c=clear' ~/.common_profile
+insert_line_only_once 'alias t=terraform' ~/.common_profile
+insert_line_only_once 'alias tg=terragrunt' ~/.common_profile
 insert_line_only_once 'alias k=kubectl' ~/.common_profile
 insert_line_only_once 'alias apt="sudo apt-get"' ~/.common_profile
 
