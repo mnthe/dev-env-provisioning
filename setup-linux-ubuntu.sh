@@ -8,7 +8,7 @@ function insert_line_only_once {
 # install_binary $name $link $binary_name
 function install_binary {
     echo "Installing $1"
-    curl -so $1 $2
+    curl -sLo $1 $2
     chmod +x ./$1
     sudo mv ./$1 /usr/local/bin/$1
 }
@@ -17,7 +17,7 @@ function install_binary {
 function install_zipped_binary {
     binary=${3:-$(echo $1)}
     echo "Installing $1"
-    curl -so tmp $2
+    curl -sLo tmp $2
     unzip -oq tmp
     chmod +x ./$binary
     sudo mv ./$binary /usr/local/bin/$1
