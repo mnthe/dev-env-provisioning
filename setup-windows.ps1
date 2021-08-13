@@ -28,6 +28,7 @@ choco install postman --yes --force
 choco install vault --yes --force
 choco install packer --yes --force
 choco install terraform --yes --force
+choco install microsoft-windows-terminal --yes --force
 
 # Install AWS CLI2
 $AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi"
@@ -37,12 +38,6 @@ Remove-Item $AWS_CLI_V2
 
 # Install ansible
 pip3 install ansible
-
-# Install Windows Terminal
-$WINDOWS_TERMINAL = "$HOME\Downloads\WINDOWS_TERMINAL.msixbundle"
-Invoke-WebRequest -Uri "https://github.com/microsoft/terminal/releases/download/v1.9.1942.0/Microsoft.WindowsTerminal_1.9.1942.0_8wekyb3d8bbwe.msixbundle" -OutFile $WINDOWS_TERMINAL
-Add-AppPackage -path $WINDOWS_TERMINAL 
-Remove-Item $WINDOWS_TERMINAL
 
 # Prepare WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
