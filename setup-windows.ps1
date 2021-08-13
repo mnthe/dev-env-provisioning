@@ -4,14 +4,7 @@ choco install 1password --yes --force
 choco install googlechrome --yes --force
 choco install steam --yes --force
 choco install slack --yes --force
-choco install office365business --yes --force
 choco install discord --yes --force
-
-# Install Line
-$LINE = "$HOME\Downloads\LineInst.exe"
-Invoke-WebRequest -Uri https://desktop.line-scdn.net/win/new/LineInst.exe -OutFile $LINE
-Start-Process -Wait -FilePath $LINE -ArgumentList "/S"
-Remove-Item $LINE
 
 # Install Kakaotalk
 $KAKAO_TALK = "$HOME\Downloads\KakaoTalk_Setup.exe"
@@ -34,14 +27,7 @@ choco install kubernetes-cli --yes --force
 choco install postman --yes --force
 choco install vault --yes --force
 choco install packer --yes --force
-
-# Install terraform multiple versions
-choco install terraform --yes --force -m --version 0.12.29
-Add-Content $profile "New-Alias terraform12 C:\ProgramData\chocolatey\lib\terraform.0.12.29\tools\terraform.exe"
-choco install terraform --yes --force -m --version 0.13.6
-Add-Content $profile "New-Alias terraform13 C:\ProgramData\chocolatey\lib\terraform.0.13.6\tools\terraform.exe"
-choco install terraform --yes --force -m --version 0.14.5
-Add-Content $profile "New-Alias terraform14 C:\ProgramData\chocolatey\lib\terraform.0.14.5\tools\terraform.exe"
+choco install terraform --yes --force
 
 # Install AWS CLI2
 $AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi"
@@ -51,3 +37,13 @@ Remove-Item $AWS_CLI_V2
 
 # Install ansible
 pip3 install ansible
+
+# Install Windows Terminal
+$WINDOWS_TERMINAL = "$HOME\Downloads\WINDOWS_TERMINAL.msixbundle"
+Invoke-WebRequest -Uri "https://github.com/microsoft/terminal/releases/download/v1.9.1942.0/Microsoft.WindowsTerminal_1.9.1942.0_8wekyb3d8bbwe.msixbundle" -OutFile $WINDOWS_TERMINAL
+Add-AppPackage -path $WINDOWS_TERMINAL 
+Remove-Item $WINDOWS_TERMINAL
+
+# Prepare WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
