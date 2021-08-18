@@ -42,6 +42,9 @@ Remove-Item $AWS_CLI_V2
 # Install ansible
 pip3 install ansible
 
+# Config git
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig $USERPROFILE/.gitconfig
+
 # Prepare WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
