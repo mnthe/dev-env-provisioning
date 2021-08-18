@@ -25,6 +25,6 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 ## Others
 
-powerlevel10k를 쓰기 위해서는 [`Nerd Font`](https://www.nerdfonts.com/) 를 사용해야함
+oh-my-posh, oh-my-zsh의 powerlevel10k theme을 쓰기 위해서는 [`Nerd Font`](https://www.nerdfonts.com/) 를 사용해야함
 
 Windows는 기본적으로 FiraCode NF를 설치하게 해 둠
