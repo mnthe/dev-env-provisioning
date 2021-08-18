@@ -32,6 +32,7 @@ choco install microsoft-windows-terminal --yes --force
 
 # Install Fonts
 choco install firacode --yes --force
+choco install firacodenf --yes --force
 
 # Install AWS CLI2
 $AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi"
@@ -44,6 +45,14 @@ pip3 install ansible
 
 # Config git
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig" -OutFile $env:USERPROFILE\.gitconfig
+
+# Config Powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+Install-PackageProvider -Name NuGet -Force
+Install-Module posh-git -Scope CurrentUser -Force
+Install-Module oh-my-posh -Scope CurrentUser -Force
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/powershell_profile.ps1" -OutFile $profile
+
 
 # Prepare WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
