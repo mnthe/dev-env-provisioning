@@ -30,6 +30,9 @@ choco install packer --yes --force
 choco install terraform --yes --force
 choco install microsoft-windows-terminal --yes --force
 
+# Install Fonts
+choco install firacode --yes --force
+
 # Install AWS CLI2
 $AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi"
 Invoke-WebRequest -Uri https://awscli.amazonaws.com/AWSCLIV2.msi -OutFile $AWS_CLI_V2
