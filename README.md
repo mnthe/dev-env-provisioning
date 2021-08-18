@@ -5,11 +5,12 @@
 
 ### Linux
 
-powerlevel10k를 쓰기 위해서는 `DejaVuSansMonoForPowerline NF` 폰트를 사용해야함
 ```bash
 bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
 chsh -s /bin/zsh # Change default shell to zsh
 ```
+
+powerlevel10k를 쓰기 위해서는 [`Nerd Font`](https://www.nerdfonts.com/) 를 사용해야함
 
 WSL을 사용할 때 credential들을 쉽게 쓰고 싶으면 아래 스크립트 추가 실행
 ```bash
@@ -22,51 +23,4 @@ bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/ma
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) # Install chocolatey
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-windows.ps1'))
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/install_fonts_windows.ps1'))
 ```
-
-## Extra
-
-- [Powerline Font](https://github.com/microsoft/cascadia-code/releases)
-
-## Common Tools
-
-### Development Tools
-
-- [git](https://git-scm.com/)
-- [vscode](https://code.visualstudio.com/)
-- [docker](https://docs.docker.com/)
-- [terraform](https://www.terraform.io/)
-- [packer](https://www.packer.io/)
-- [vault](https://www.vaultproject.io/)
-- [kubectl](https://kubernetes.io/ko/docs/reference/kubectl/overview/)
-- [aws-cli2](https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/install-cliv2.html)
-
-### Languages
-
-- [Node.js](https://nodejs.org/ko/)
-- [Golang](https://golang.org/)
-- [python](https://www.python.org/)
-
-## Extra Tools
-
-### Linux
-
-- [oh-my-zsh](https://ohmyz.sh/#install)
-
-### MacOS
-
-### Windows Extras
-
-- [lens]()
-- [postman]()
-- [1password]()
-- [chrome]()
-- [steam]()
-- [slack]()
-- [office365]()
-- [discord]()
-- [line]()
-- [kakaotalk]()
-- [vs2019]()
-
