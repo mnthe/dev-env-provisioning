@@ -5,7 +5,6 @@
 [color]
     ui = auto
 
-
 [core]
     eol = lf
     safecrlf = warn
