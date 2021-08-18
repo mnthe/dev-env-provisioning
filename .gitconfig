@@ -1,24 +1,60 @@
 [user]
-	email = mnthe.dev@gmail.com
-	name = JungHun Kim
+    email = mnthe.dev@gmail.com
+    name = JungHun Kim
+
+[color]
+    ui = auto
+
+
 [core]
-	editor = code --wait
-	eol = lf
-	autocrlf = input
+    eol = lf
+    safecrlf = warn
+    autocrlf = input
+    editor = code --wait    
+    pager = cat
+    excludesfile = ~/.gitignore
+    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[rerere]
+    enabled = true    
+
+[diff]
+    mnemonicPrefix = true
+    renames = true
+    wordRegex = .
+    submodule = log
+    tool = vscode
+    
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[push]
+    default = upstream
+    followTags = true
+
 [pull]
-	rebase = true
+    rebase = true
+
 [fetch]
-	prune = true
+    prune = true
+    recurseSubmodules = on-demand
+
 [alias]
-	# 마지막 커밋의 파일을 보존하고, 커밋만 날림
-	undo = reset --soft HEAD^
-	# untracked file까지 한방에 stash
-	stash-all = stash save --include-untracked
-	# git log(커밋 히스토리)를 터미널에 이쁘게 보여줌
-	l = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(red)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-	# 현재 브랜치와 동일한 이름으로 git push origin
-	pu = !git push origin `git branch --show-current`
-    # git rebase 시 origin fetch 후 origin 기준으로 rebase 하기
+    undo = reset --soft HEAD^
+    stash-all = stash save --include-untracked
+    l = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(red)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    pu = !git push -u origin `git branch --show-current`
+    puf = push --force-with-lease
     ro = "!f() { git fetch && git rebase origin/$@; }; f"
-    # git ro {branch} + git pu => 현재 브랜치를 origin/{branch}에 rebase 후 remote에 push
     rop = "!f() { git ro $@ && git pu; }; f"
+    
+[tag]
+    sort = version:refname
+    
+[versionsort]
+    prereleaseSuffix = -pre
+    prereleaseSuffix = .pre 
+    prereleaseSuffix = -beta
+    prereleaseSuffix = .beta
+    prereleaseSuffix = -rc
+    prereleaseSuffix = .rc
