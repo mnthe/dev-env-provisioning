@@ -70,7 +70,8 @@ git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/pl
 sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
-install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl
+KUBERNETES_VERSION=v1.21.3
+install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
 ### Install Krew
 cd "$(mktemp -d)" &&
     curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
@@ -90,16 +91,17 @@ rm -rf ./aws
 install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
 
 ## Install terraform
-install_zipped_binary terraform14 https://releases.hashicorp.com/terraform/0.14.6/terraform_0.14.6_linux_amd64.zip terraform
-install_zipped_binary terraform13 https://releases.hashicorp.com/terraform/0.13.6/terraform_0.13.6_linux_amd64.zip terraform
-install_zipped_binary terraform12 https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip terraform
-install_binary terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.28.8/terragrunt_linux_amd64
+install_zipped_binary terraform https://releases.hashicorp.com/terraform/1.1.0/terraform_1.1.0_linux_amd64.zip terraform
+install_zipped_binary terraform13 https://releases.hashicorp.com/terraform/0.13.7/terraform_0.13.7_linux_amd64.zip terraform
+install_zipped_binary terraform12 https://releases.hashicorp.com/terraform/0.12.31/terraform_0.12.31_linux_amd64.zip terraform
 
 ## Install vault
-install_zipped_binary vault https://releases.hashicorp.com/vault/1.6.2/vault_1.6.2_linux_amd64.zip
+VAULT_VERSION=1.8.1
+install_zipped_binary vault https://releases.hashicorp.com/vault/$VAULT_VERSION/vault_$VAULT_VERSION_linux_amd64.zip
 
 ## Install packer
-install_zipped_binary packer https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip
+PACKER_VERSION=1.7.4
+install_zipped_binary packer https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION_linux_amd64.zip
 
 ## Install helm
 curl -fsSL -o ~/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 &&
@@ -118,9 +120,10 @@ insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
-goenv install 1.15.8
-goenv install 1.16.0
-goenv global 1.16.0
+goenv install 1.15.15
+goenv install 1.16.7
+goenv install 1.17.0
+goenv global 1.17.0
 
 ## Install Node.js via nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
@@ -132,15 +135,6 @@ nvm install --lts
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
-# TODO: Install using pyenv
-# git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-# cd ~/.pyenv && src/configure && make -C src
-# insert_line_only_once 'export PYENV_ROOT="$HOME/.pyenv"' ~/.common_profile
-# insert_line_only_once 'export PATH="$PYENV_ROOT/bin:$PATH"' ~/.common_profile
-# insert_line_only_once 'source ~/.pyenv_profile' ~/.common_profile
-# echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' > ~/.pyenv_profile
-# source ~/.pyenv_profile
-# pyenv install $(pyenv install --list | grep -v - | grep -v b | tail -1)
 
 ## Install Ansible
 pip3 install ansible
@@ -152,7 +146,6 @@ insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 # Aliases
 insert_line_only_once 'alias c=clear' ~/.common_profile
 insert_line_only_once 'alias t=terraform' ~/.common_profile
-insert_line_only_once 'alias tg=terragrunt' ~/.common_profile
 insert_line_only_once 'alias k=kubectl' ~/.common_profile
 insert_line_only_once 'alias apt="sudo apt-get"' ~/.common_profile
 
