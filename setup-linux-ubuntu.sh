@@ -9,7 +9,7 @@ function insert_line_only_once {
 function install_binary {
     echo "Installing $1"
     curl -sLo $1 $2
-    chmod +x ./$1
+    sudo chmod +x ./$1
     sudo mv ./$1 /usr/local/bin/$1
 }
 
@@ -17,9 +17,9 @@ function install_binary {
 function install_zipped_binary {
     binary=${3:-$(echo $1)}
     echo "Installing $1"
-    curl -sLo tmp $2
-    unzip -oq tmp
-    chmod +x ./$binary
+    curl -sLo tmp.zip $2
+    unzip -oq tmp.zip
+    sudo chmod +x ./$binary
     sudo mv ./$binary /usr/local/bin/$1
     rm -f tmp
 }
@@ -91,17 +91,17 @@ rm -rf ./aws
 install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
 
 ## Install terraform
-install_zipped_binary terraform https://releases.hashicorp.com/terraform/1.1.0/terraform_1.1.0_linux_amd64.zip terraform
+install_zipped_binary terraform https://releases.hashicorp.com/terraform/1.0.4/terraform_1.0.4_linux_amd64.zip terraform
 install_zipped_binary terraform13 https://releases.hashicorp.com/terraform/0.13.7/terraform_0.13.7_linux_amd64.zip terraform
 install_zipped_binary terraform12 https://releases.hashicorp.com/terraform/0.12.31/terraform_0.12.31_linux_amd64.zip terraform
 
 ## Install vault
 VAULT_VERSION=1.8.1
-install_zipped_binary vault https://releases.hashicorp.com/vault/$VAULT_VERSION/vault_$VAULT_VERSION_linux_amd64.zip
+install_zipped_binary vault https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 
 ## Install packer
 PACKER_VERSION=1.7.4
-install_zipped_binary packer https://releases.hashicorp.com/packer/$PACKER_VERSION/packer_$PACKER_VERSION_linux_amd64.zip
+install_zipped_binary packer https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
 
 ## Install helm
 curl -fsSL -o ~/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 &&
