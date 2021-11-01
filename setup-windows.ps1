@@ -1,3 +1,5 @@
+Requires -RunAsAdministrator
+
 $ProgressPreference = 'SilentlyContinue'
 
 choco install 1password --yes --force
@@ -35,10 +37,7 @@ choco install firacode --yes --force
 choco install firacodenf --yes --force
 
 # Install AWS CLI2
-$AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi"
-Invoke-WebRequest -Uri https://awscli.amazonaws.com/AWSCLIV2.msi -OutFile $AWS_CLI_V2
-msiexec /i $AWS_CLI_V2 /quiet /qn /norestart
-Remove-Item $AWS_CLI_V2
+$AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi" /qn+
 
 # Install ansible
 pip3 install ansible
