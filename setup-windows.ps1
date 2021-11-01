@@ -7,6 +7,7 @@ choco install googlechrome --yes --force
 choco install steam --yes --force
 choco install slack --yes --force
 choco install discord --yes --force
+choco install powertoys --yes --force
 
 # Install Kakaotalk
 $KAKAO_TALK = "$HOME\Downloads\KakaoTalk_Setup.exe"
