@@ -135,6 +135,7 @@ nvm install --lts
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
+insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_profile 
 
 ## Install Ansible
 pip3 install ansible
