@@ -38,7 +38,7 @@ choco install firacode --yes --force
 choco install firacodenf --yes --force
 
 # Install AWS CLI2
-$AWS_CLI_V2 = "$HOME\Downloads\AWSCLIV2.msi" /qn+
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi /qn+
 
 # Install ansible
 pip3 install ansible
