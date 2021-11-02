@@ -59,3 +59,5 @@ wsl --install
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
+# Enable Sandbox
+Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
