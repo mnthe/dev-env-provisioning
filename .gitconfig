@@ -1,7 +1,7 @@
 [user]
     email = mnthe.dev@gmail.com
     name = JungHun Kim
-    signingkey = 9A035589
+    # signingkey = 9A035589
 
 [color]
     ui = auto
@@ -15,11 +15,11 @@
     excludesfile = ~/.gitignore
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
-[commit]
-    gpgsign = true
+# [commit]
+#     gpgsign = true
 
-[tag]
-    gpgsign = true
+# [tag]
+#     gpgsign = true
 
 [rerere]
     enabled = true    
@@ -44,6 +44,13 @@
 [fetch]
     prune = true
     recurseSubmodules = on-demand
+
+[pack]
+    packSizeLimit = 100m
+    threads = 1
+    deltaCacheSize = 512m
+    windowMemory = 100m
+
 
 [alias]
     undo = reset --soft HEAD^
