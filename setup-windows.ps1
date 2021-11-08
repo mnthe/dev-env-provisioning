@@ -51,6 +51,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 Install-PackageProvider -Name NuGet -Force
 Install-Module posh-git -Scope CurrentUser -Force
 Install-Module oh-my-posh -Scope CurrentUser -Force
+Install-Module PSKubectlCompletion -Scope CurrentUser -Force
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/powershell_profile.ps1" -OutFile $profile
 
 
