@@ -67,6 +67,8 @@
 [versionsort]
     prereleaseSuffix = -pre
     prereleaseSuffix = .pre 
+    prereleaseSuffix = -alpha
+    prereleaseSuffix = .alpha
     prereleaseSuffix = -beta
     prereleaseSuffix = .beta
     prereleaseSuffix = -rc
