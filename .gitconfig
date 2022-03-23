@@ -1,7 +1,7 @@
 [user]
     email = mnthe.dev@gmail.com
     name = JungHun Kim
-    # signingkey = 9A035589
+	signingkey = 09FEB4454E3A4385
 
 [color]
     ui = auto
@@ -15,11 +15,11 @@
     excludesfile = ~/.gitignore
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
-# [commit]
-#     gpgsign = true
+[commit]
+	gpgsign = true
 
-# [tag]
-#     gpgsign = true
+[tag]
+	gpgsign = true
 
 [rerere]
     enabled = true    
