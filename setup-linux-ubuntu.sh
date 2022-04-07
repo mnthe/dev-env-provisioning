@@ -24,6 +24,14 @@ function install_zipped_binary {
     rm -f tmp
 }
 
+if [[ $(cat /proc/version) =~ "microsoft" ]]; then
+    echo "[network]" | sudo tee /etc/wsl.conf 
+    echo "generateResolvConf = false" | sudo tee -a /etc/wsl.conf
+    sudo rm -Rf /etc/resolv.conf
+    echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf 
+    echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf 
+fi
+
 # Create Workspace & Setup Profile
 cd ~
 mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
@@ -72,14 +80,6 @@ sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-hig
 ## Install kubectl
 KUBERNETES_VERSION=v1.21.11
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
-### Install Krew
-cd "$(mktemp -d)" &&
-    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
-    tar zxvf krew.tar.gz &&
-    KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_$(uname -m | sed -e 's/x86_64/amd64/' -e 's/arm.*$/arm/' -e 's/aarch64$/arm64/')" &&
-    "$KREW" install krew &&
-    cd ~
-insert_line_only_once 'export PATH=$PATH:$HOME/.krew/bin' ~/.common_profile
 
 ## Install aws-cli2
 curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
