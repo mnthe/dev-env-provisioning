@@ -70,7 +70,7 @@ git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/pl
 sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
-KUBERNETES_VERSION=v1.21.3
+KUBERNETES_VERSION=v1.21.11
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
 ### Install Krew
 cd "$(mktemp -d)" &&
@@ -91,16 +91,15 @@ rm -rf ./aws
 install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
 
 ## Install terraform
-install_zipped_binary terraform https://releases.hashicorp.com/terraform/1.0.4/terraform_1.0.4_linux_amd64.zip terraform
-install_zipped_binary terraform13 https://releases.hashicorp.com/terraform/0.13.7/terraform_0.13.7_linux_amd64.zip terraform
-install_zipped_binary terraform12 https://releases.hashicorp.com/terraform/0.12.31/terraform_0.12.31_linux_amd64.zip terraform
+TERRAFORM_VERSION=1.1.7
+install_zipped_binary terraform https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform
 
 ## Install vault
-VAULT_VERSION=1.8.1
+VAULT_VERSION=1.10.0
 install_zipped_binary vault https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 
 ## Install packer
-PACKER_VERSION=1.7.4
+PACKER_VERSION=1.8.0
 install_zipped_binary packer https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
 
 ## Install helm
@@ -120,14 +119,14 @@ insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
-goenv install 1.15.15
-goenv install 1.16.7
-goenv install 1.17.0
-goenv global 1.17.0
+goenv install 1.16.15
+goenv install 1.17.9
+goenv install 1.18.1
+goenv global 1.17.9
 
 ## Install Node.js via nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | zsh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 source ~/.bashrc
 nvm install --lts
 
