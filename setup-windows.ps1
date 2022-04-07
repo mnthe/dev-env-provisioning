@@ -20,7 +20,7 @@ choco install git --yes --force
 choco install gnupg --yes --force
 choco install vscode --yes --force
 choco install docker-desktop --yes --force
-choco install visualstudio2019professional --yes --force `
+choco install visualstudio2022community --yes --force `
     --package-parameters "--add Microsoft.VisualStudio.Workload.NetWeb --add Microsoft.VisualStudio.Workload.NetCoreTools --includeRecommended --passive --locale en-US"
 choco install nodejs-lts --yes --force
 choco install golang --yes --force
