@@ -3,6 +3,7 @@ Requires -RunAsAdministrator
 $ProgressPreference = 'SilentlyContinue'
 
 choco install 1password --yes --force
+choco install keybase --yes --force
 choco install googlechrome --yes --force
 choco install steam --yes --force
 choco install slack --yes --force
