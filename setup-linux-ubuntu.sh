@@ -139,6 +139,12 @@ insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_pro
 ## Install Ansible
 pip3 install ansible
 
+## Install Keybase
+curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
+sudo apt install -y ./keybase_amd64.deb
+rm -f ./keybase_amd64.deb
+run_keybase
+
 # Shell Completion
 kubectl completion zsh > ~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
@@ -151,3 +157,4 @@ insert_line_only_once 'alias apt="sudo apt-get"' ~/.common_profile
 
 # Done
 source ~/.common_profile
+insert_line_only_once 'source ~/.common_profile' ~/.zshrc
