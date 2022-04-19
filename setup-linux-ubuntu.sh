@@ -120,9 +120,9 @@ insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
 goenv install 1.16.15
-goenv install 1.17.9
-goenv install 1.18.1
-goenv global 1.17.9
+goenv install 1.17.8
+goenv install 1.18.0
+goenv global 1.17.8
 
 ## Install Node.js via nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
