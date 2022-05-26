@@ -55,11 +55,19 @@ Install-Module oh-my-posh -Scope CurrentUser -Force
 Install-Module PSKubectlCompletion -Scope CurrentUser -Force
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/powershell_profile.ps1" -OutFile $profile
 
+# Install WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
 
-# Prepare WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
-wsl --install
+## 1. Linux용 Windows 하위 시스템 사용 (https://docs.microsoft.com/ko-kr/windows/wsl/install-manual#step-1---enable-the-windows-subsystem-for-linux)
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+## 3. Virtual Machine 기능 사용 (https://docs.microsoft.com/ko-kr/windows/wsl/install-manual#step-3---enable-virtual-machine-feature)
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+## 4. Linux 커널 업데이트 패키지 다운로드 (https://docs.microsoft.com/ko-kr/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package)
+msiexec.exe /i https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi /qn+
+## 5. WSL 2를 기본 버전으로 설정 (https://docs.microsoft.com/ko-kr/windows/wsl/install-manual#step-5---set-wsl-2-as-your-default-version)
+wsl --set-default-version 2
+## 6. 선택한 Linux 배포 설치 (https://docs.microsoft.com/ko-kr/windows/wsl/install-manual#step-6---install-your-linux-distribution-of-choice)
+curl.exe -L -o ubuntu.appx https://aka.ms/wslubuntu
+Add-AppxPackage .\app_name.appx
 
 # Enable Sandbox
 Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
