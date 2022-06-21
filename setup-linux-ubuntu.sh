@@ -91,15 +91,15 @@ rm -rf ./aws
 install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
 
 ## Install terraform
-TERRAFORM_VERSION=1.1.7
+TERRAFORM_VERSION=1.2.3
 install_zipped_binary terraform https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform
 
 ## Install vault
-VAULT_VERSION=1.10.0
+VAULT_VERSION=1.11.0
 install_zipped_binary vault https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 
 ## Install packer
-PACKER_VERSION=1.8.0
+PACKER_VERSION=1.8.1
 install_zipped_binary packer https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip
 
 ## Install helm
@@ -119,10 +119,10 @@ insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
-goenv install 1.16.15
-goenv install 1.17.8
-goenv install 1.18.0
-goenv global 1.17.8
+goenv install 1.17.11
+goenv install 1.18.3
+goenv install 1.19beta1
+goenv global 1.18.3
 
 ## Install Node.js via nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
