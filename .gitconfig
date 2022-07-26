@@ -3,6 +3,18 @@
     name = JungHun Kim
     signingkey = B607F4EFB0F5D95E
 
+[commit]
+    gpgsign = true
+
+[tag]
+    gpgsign = true
+
+[push]
+    gpgsign = true
+
+[rerere]
+    enabled = true
+
 [color]
     ui = auto
 
@@ -10,19 +22,25 @@
     eol = lf
     safecrlf = warn
     autocrlf = input
-    editor = code --wait    
-    pager = cat
+
     excludesfile = ~/.gitignore
-    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+    whitespace=-indent-with-non-tab,trailing-space,cr-at-eol
 
-[commit]
-	gpgsign = true
+[push]
+    default = upstream
+    autoSetupRemote = true
+    followTags = true
 
-[tag]
-	gpgsign = true
+[pull]
+    ff = only
+    rebase = true
 
-[rerere]
-    enabled = true    
+[fetch]
+    prune = true
+    pruneTags = true
+
+[core]
+    editor = code --wait
 
 [diff]
     mnemonicPrefix = true
@@ -30,20 +48,9 @@
     wordRegex = .
     submodule = log
     tool = vscode
-    
+
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
-
-[push]
-    default = upstream
-    followTags = true
-
-[pull]
-    rebase = true
-
-[fetch]
-    prune = true
-    recurseSubmodules = on-demand
 
 [pack]
     packSizeLimit = 100m
@@ -60,13 +67,13 @@
     puf = push --force-with-lease
     ro = "!f() { git fetch && git rebase origin/$@; }; f"
     rop = "!f() { git ro $@ && git pu; }; f"
-    
+
 [tag]
     sort = version:refname
-    
+
 [versionsort]
     prereleaseSuffix = -pre
-    prereleaseSuffix = .pre 
+    prereleaseSuffix = .pre
     prereleaseSuffix = -alpha
     prereleaseSuffix = .alpha
     prereleaseSuffix = -beta
