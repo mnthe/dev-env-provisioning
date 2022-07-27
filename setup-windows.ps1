@@ -53,7 +53,10 @@ Install-PackageProvider -Name NuGet -Force
 Install-Module posh-git -Scope CurrentUser -Force
 Install-Module oh-my-posh -Scope CurrentUser -Force
 Install-Module PSKubectlCompletion -Scope CurrentUser -Force
+mkdir -p "$HOME\.oh-my-posh\themes\"
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.oh-my-posh/themes/default.json" -OutFile "$HOME\.oh-my-posh\themes\default.json"
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/powershell_profile.ps1" -OutFile $profile
+
 
 # Install WSL2 (https://docs.microsoft.com/ko-kr/windows/wsl/install-win10)
 
