@@ -9,11 +9,11 @@
 [tag]
     gpgsign = true
 
-[push]
-    gpgsign = true
-
 [rerere]
     enabled = true
+
+[help]
+    autocorrect = 1
 
 [color]
     ui = auto
@@ -32,7 +32,6 @@
     followTags = true
 
 [pull]
-    ff = only
     rebase = true
 
 [fetch]
@@ -58,15 +57,11 @@
     deltaCacheSize = 512m
     windowMemory = 100m
 
-
 [alias]
+    s = status -s
     undo = reset --soft HEAD^
-    stash-all = stash save --include-untracked
+    staall = stash save --include-untracked
     l = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(red)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-    pu = !git push -u origin `git branch --show-current`
-    puf = push --force-with-lease
-    ro = "!f() { git fetch && git rebase origin/$@; }; f"
-    rop = "!f() { git ro $@ && git pu; }; f"
 
 [tag]
     sort = version:refname
