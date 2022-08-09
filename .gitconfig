@@ -27,7 +27,7 @@
     whitespace=-indent-with-non-tab,trailing-space,cr-at-eol
 
 [push]
-    default = upstream
+    default = current
     autoSetupRemote = true
     followTags = true
 
