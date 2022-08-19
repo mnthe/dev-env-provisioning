@@ -52,10 +52,11 @@
     cmd = code --wait --diff $LOCAL $REMOTE
 
 [merge]
-  tool = vscode
+    renames = true
+    tool = vscode
   
 [mergetool "vscode"]
-  cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
 [pack]
     packSizeLimit = 100m
