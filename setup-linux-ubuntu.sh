@@ -101,6 +101,9 @@ unzip -q awscliv2.zip
 sudo ./aws/install
 rm -rf ./aws
 
+## Install Azure cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
 ## Install aws-iam-authenticator
 install_binary aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64
 
