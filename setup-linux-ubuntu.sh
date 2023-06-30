@@ -39,6 +39,21 @@ while (("$#")); do
     esac
 done
 
+# Use fastest mirror
+UBUNTU_RELEASE=jammy
+MIRROR_TEXT="# https://askubuntu.com/questions/37753/how-can-i-get-apt-to-use-a-mirror-close-to-me-or-choose-a-faster-mirror
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}" main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}"-updates main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}"-backports main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}"-security main restricted universe multiverse"
+
+if ! grep -q "$MIRROR_TEXT" /etc/apt/sources.list; then
+    echo "$MIRROR_TEXT" | cat - /etc/apt/sources.list > temp && sudo mv temp /etc/apt/sources.list
+    echo "Mirror list added to the start of /etc/apt/sources.list."
+else
+    echo "Mirror list already exists in /etc/apt/sources.list. No changes made."
+fi
+
 # Install requirements
 sudo apt update
 sudo apt install -y zip unzip software-properties-common
