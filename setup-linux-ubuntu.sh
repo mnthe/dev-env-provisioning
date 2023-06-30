@@ -180,3 +180,7 @@ fi
 # Done
 source ~/.common_profile
 insert_line_only_once 'source ~/.common_profile' ~/.zshrc
+
+echo "Installation Done"
+echo 'Please run "chsh -s /bin/zsh"'
+echo "Please restart your terminal"
