@@ -2,7 +2,7 @@
 
 # insert_line_only_once $line $file
 function insert_line_only_once {
-    grep -qxF "$1" $2 || echo "$1" >>  $2
+    grep -qxF "$1" $2 || echo "$1" >>$2
 }
 
 # install_binary $name $link $binary_name
@@ -24,20 +24,20 @@ function install_zipped_binary {
     rm -f tmp
 }
 
-if [[ $(cat /proc/version) =~ "microsoft" ]]; then
-    echo "[network]" | sudo tee /etc/wsl.conf 
-    echo "generateResolvConf = false" | sudo tee -a /etc/wsl.conf
-    sudo rm -Rf /etc/resolv.conf
-    echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf 
-    echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf 
-fi
-
-# Create Workspace & Setup Profile
-cd ~
-mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
-touch ~/.common_profile
-insert_line_only_once 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile
-insert_line_only_once 'source ~/.common_profile' ~/.bashrc
+# Get flag
+use_personal_settings=false
+while (("$#")); do
+    case "$1" in
+    --use-personal-settings)
+        use_personal_settings=true
+        shift
+        ;;
+    *)
+        echo "Error: Invalid option"
+        exit 1
+        ;;
+    esac
+done
 
 # Install requirements
 sudo apt update
@@ -48,19 +48,18 @@ sudo apt update
 # Install Tools
 ## Install git
 sudo apt install -y git git-lfs
-curl -so ~/.gitconfig https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig
 
 # Install vscode
 if [[ $(cat /proc/version) =~ "microsoft" ]]; then
     if [[ $(command -v code) =~ "/mnt/" ]]; then
-    code --version # Prevent to execute code gui
+        code --version # Prevent to execute code gui
     else
-    echo "VSCode not installed on Windows"
+        echo "VSCode not installed on Windows"
     fi
 else
-curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-sudo apt install -y ./vscode.deb
-rm -f vscode.deb
+    curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    sudo apt install -y ./vscode.deb
+    rm -f vscode.deb
 fi
 
 ## Install oh-my-zsh
@@ -71,7 +70,6 @@ insert_line_only_once 'source ~/.common_profile' ~/.zshrc
 ### Install powerlevel10k
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
 sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.zshrc
-curl -so ~/.p10k.zsh https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.oh-my-zsh/.p10k.zsh
 ### Install Plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -137,24 +135,14 @@ insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
 insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_profile 
 
-## Install Ansible
-pip3 install ansible
-
-## Install Keybase
-curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
-sudo apt install -y ./keybase_amd64.deb
-rm -f ./keybase_amd64.deb
-run_keybase
-
 # Shell Completion
 kubectl completion zsh > ~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
-# Aliases
-insert_line_only_once 'alias c=clear' ~/.common_profile
-insert_line_only_once 'alias t=terraform' ~/.common_profile
-insert_line_only_once 'alias k=kubectl' ~/.common_profile
-insert_line_only_once 'alias apt="sudo apt-get"' ~/.common_profile
+# Set personal settings
+if $use_personal_settings; then
+    bash -s -- --username "$username" < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-personal-settings.sh)
+fi
 
 # Done
 source ~/.common_profile
