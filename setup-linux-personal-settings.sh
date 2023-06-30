@@ -34,13 +34,19 @@ fi
 
 # Create Workspace & Setup Profile
 cd ~
-mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
+mkdir -p ~/workspace/src/github.com/${username} ~/workspace/bin
 touch ~/.common_profile
 insert_line_only_once 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile
 insert_line_only_once 'source ~/.common_profile' ~/.bashrc
 
 # Use predefined gitconfig
 curl -so ~/.gitconfig https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig
+## if username is not mnthe, delete [user] section
+if [[ $username != "mnthe" ]]; then
+  awk '/\[user\]/{flag=1; next} /^\[.*\]/{flag=0} !flag' ~/.gitconfig > temp && mv temp ~/.gitconfig
+fi
+
+
 
 ## Use predefined p10k config
 curl -so ~/.p10k.zsh https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.oh-my-zsh/.p10k.zsh

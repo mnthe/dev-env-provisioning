@@ -24,10 +24,21 @@ function install_zipped_binary {
     rm -f tmp
 }
 
-# Get flag
+# Get flags
 use_personal_settings=false
+username='mnthe' # Default username
 while (("$#")); do
     case "$1" in
+    --username)
+        shift
+        if (("$#")); then
+            username=$1
+            shift
+        else
+            echo "Error: Expected a value after --username"
+            exit 1
+        fi
+        ;;
     --use-personal-settings)
         use_personal_settings=true
         shift
@@ -155,7 +166,7 @@ nvm install --lts
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
-insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_profile
+insert_line_only_once "export PATH=\"/home/${username}/.local/bin:\$PATH\"" ~/.common_profile
 
 # Shell Completion
 kubectl completion zsh >~/.kube.zsh.completion
