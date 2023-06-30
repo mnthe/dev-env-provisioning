@@ -47,9 +47,12 @@ if [[ $username != "mnthe" ]]; then
 fi
 
 
-
+### Install powerlevel10k
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
+sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.zshrc
 ## Use predefined p10k config
 curl -so ~/.p10k.zsh https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.oh-my-zsh/.p10k.zsh
+insert_line_only_once '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' ~/.zshrc
 
 ## Install Keybase
 curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
