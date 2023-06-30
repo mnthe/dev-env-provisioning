@@ -2,7 +2,7 @@
 
 # insert_line_only_once $line $file
 function insert_line_only_once {
-    grep -qxF "$1" $2 || echo "$1" >>  $2
+    grep -qxF "$1" $2 || echo "$1" >>$2
 }
 
 # install_binary $name $link $binary_name
@@ -24,20 +24,46 @@ function install_zipped_binary {
     rm -f tmp
 }
 
-if [[ $(cat /proc/version) =~ "microsoft" ]]; then
-    echo "[network]" | sudo tee /etc/wsl.conf 
-    echo "generateResolvConf = false" | sudo tee -a /etc/wsl.conf
-    sudo rm -Rf /etc/resolv.conf
-    echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf 
-    echo "nameserver 1.1.1.1" | sudo tee -a /etc/resolv.conf 
-fi
+# Get flags
+use_personal_settings=false
+username='mnthe' # Default username
+while (("$#")); do
+    case "$1" in
+    --username)
+        shift
+        if (("$#")); then
+            username=$1
+            shift
+        else
+            echo "Error: Expected a value after --username"
+            exit 1
+        fi
+        ;;
+    --use-personal-settings)
+        use_personal_settings=true
+        shift
+        ;;
+    *)
+        echo "Error: Invalid option"
+        exit 1
+        ;;
+    esac
+done
 
-# Create Workspace & Setup Profile
-cd ~
-mkdir -p ~/workspace/src/github.com/mnthe ~/workspace/bin
-touch ~/.common_profile
-insert_line_only_once 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile
-insert_line_only_once 'source ~/.common_profile' ~/.bashrc
+# Use fastest mirror
+UBUNTU_RELEASE=jammy
+MIRROR_TEXT="# https://askubuntu.com/questions/37753/how-can-i-get-apt-to-use-a-mirror-close-to-me-or-choose-a-faster-mirror
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}" main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}"-updates main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}"-backports main restricted universe multiverse
+deb mirror://mirrors.ubuntu.com/mirrors.txt "${UBUNTU_RELEASE}"-security main restricted universe multiverse"
+
+if ! grep -q "$MIRROR_TEXT" /etc/apt/sources.list; then
+    echo "$MIRROR_TEXT" | cat - /etc/apt/sources.list > temp && sudo mv temp /etc/apt/sources.list
+    echo "Mirror list added to the start of /etc/apt/sources.list."
+else
+    echo "Mirror list already exists in /etc/apt/sources.list. No changes made."
+fi
 
 # Install requirements
 sudo apt update
@@ -48,19 +74,18 @@ sudo apt update
 # Install Tools
 ## Install git
 sudo apt install -y git git-lfs
-curl -so ~/.gitconfig https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.gitconfig
 
 # Install vscode
 if [[ $(cat /proc/version) =~ "microsoft" ]]; then
     if [[ $(command -v code) =~ "/mnt/" ]]; then
-    code --version # Prevent to execute code gui
+        code --version # Prevent to execute code gui
     else
-    echo "VSCode not installed on Windows"
+        echo "VSCode not installed on Windows"
     fi
 else
-curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
-sudo apt install -y ./vscode.deb
-rm -f vscode.deb
+    curl -sLo vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+    sudo apt install -y ./vscode.deb
+    rm -f vscode.deb
 fi
 
 ## Install oh-my-zsh
@@ -68,10 +93,6 @@ sudo apt install -y zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
 insert_line_only_once 'source ~/.common_profile' ~/.zshrc
-### Install powerlevel10k
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel10k
-sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.zshrc
-curl -so ~/.p10k.zsh https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.oh-my-zsh/.p10k.zsh
 ### Install Plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -79,7 +100,7 @@ git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/pl
 sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
-KUBERNETES_VERSION=v1.21.11
+KUBERNETES_VERSION=v1.27.1
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
 
 ## Install aws-cli2
@@ -88,15 +109,18 @@ unzip -q awscliv2.zip
 sudo ./aws/install
 rm -rf ./aws
 
+## Install Azure cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
 ## Install aws-iam-authenticator
-install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
+install_binary aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64
 
 ## Install terraform
-TERRAFORM_VERSION=1.2.3
+TERRAFORM_VERSION=1.5.2
 install_zipped_binary terraform https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform
 
 ## Install vault
-VAULT_VERSION=1.11.0
+VAULT_VERSION=1.14.0
 install_zipped_binary vault https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 
 ## Install packer
@@ -109,6 +133,10 @@ curl -fsSL -o ~/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/s
     ~/get_helm.sh
 rm -f ~/get_helm.sh
 
+## Install tsh
+TELEPORT_VERSION=13.1.5
+curl https://goteleport.com/static/install.sh | bash -s ${TELEPORT_VERSION}
+
 # Install Languages
 
 ## Install go-lang via goenv
@@ -120,14 +148,14 @@ insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
-goenv install 1.17.11
-goenv install 1.18.3
-goenv install 1.19beta1
-goenv global 1.18.3
+goenv install 1.18.10
+goenv install 1.19.10
+goenv install 1.20.5
+goenv global 1.20.5
 
 ## Install Node.js via nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | zsh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 source ~/.bashrc
 nvm install --lts
 
@@ -135,27 +163,21 @@ nvm install --lts
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
-insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_profile 
-
-## Install Ansible
-pip3 install ansible
-
-## Install Keybase
-curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
-sudo apt install -y ./keybase_amd64.deb
-rm -f ./keybase_amd64.deb
-run_keybase
+insert_line_only_once "export PATH=\"/home/${username}/.local/bin:\$PATH\"" ~/.common_profile
 
 # Shell Completion
-kubectl completion zsh > ~/.kube.zsh.completion
+kubectl completion zsh >~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
-# Aliases
-insert_line_only_once 'alias c=clear' ~/.common_profile
-insert_line_only_once 'alias t=terraform' ~/.common_profile
-insert_line_only_once 'alias k=kubectl' ~/.common_profile
-insert_line_only_once 'alias apt="sudo apt-get"' ~/.common_profile
+# Set personal settings
+if $use_personal_settings; then
+    bash -s -- --username "$username" < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-personal-settings.sh)
+fi
 
 # Done
 source ~/.common_profile
 insert_line_only_once 'source ~/.common_profile' ~/.zshrc
+
+echo "Installation Done"
+echo 'Please run "chsh -s /bin/zsh"'
+echo "Please restart your terminal"
