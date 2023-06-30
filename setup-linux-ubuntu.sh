@@ -122,6 +122,10 @@ curl -fsSL -o ~/get_helm.sh https://raw.githubusercontent.com/helm/helm/master/s
     ~/get_helm.sh
 rm -f ~/get_helm.sh
 
+## Install tsh
+TELEPORT_VERSION=13.1.5
+curl https://goteleport.com/static/install.sh | bash -s ${TELEPORT_VERSION}
+
 # Install Languages
 
 ## Install go-lang via goenv
