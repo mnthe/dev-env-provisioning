@@ -6,7 +6,8 @@
 ### Linux
 
 ```bash
-bash < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
+# Change your username & put --use-personal-settings flag (omit if you don't want to use) if you want to use repository predefined settings 
+bash -s -- --use-personal-settings --username "mnthe" < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-linux-ubuntu.sh)
 chsh -s /bin/zsh # Change default shell to zsh
 ```
 
