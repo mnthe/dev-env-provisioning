@@ -92,7 +92,7 @@ git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/pl
 sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
-KUBERNETES_VERSION=v1.21.11
+KUBERNETES_VERSION=v1.27.1
 install_binary kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
 
 ## Install aws-cli2
@@ -102,14 +102,14 @@ sudo ./aws/install
 rm -rf ./aws
 
 ## Install aws-iam-authenticator
-install_binary aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
+install_binary aws-iam-authenticator https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64
 
 ## Install terraform
-TERRAFORM_VERSION=1.2.3
+TERRAFORM_VERSION=1.5.2
 install_zipped_binary terraform https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip terraform
 
 ## Install vault
-VAULT_VERSION=1.11.0
+VAULT_VERSION=1.14.0
 install_zipped_binary vault https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip
 
 ## Install packer
@@ -133,14 +133,14 @@ insert_line_only_once 'export GOPATH="$HOME/workspace"' ~/.common_profile
 insert_line_only_once 'export GOENV_ROOT="$HOME/.goenv"' ~/.common_profile
 insert_line_only_once 'export PATH="$GOROOT/bin:$GOENV_ROOT/bin:$PATH"' ~/.common_profile
 insert_line_only_once 'eval "$(goenv init -)"' ~/.common_profile
-goenv install 1.17.11
-goenv install 1.18.3
-goenv install 1.19beta1
-goenv global 1.18.3
+goenv install 1.18.10
+goenv install 1.19.10
+goenv install 1.20.5
+goenv global 1.20.5
 
 ## Install Node.js via nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | zsh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 source ~/.bashrc
 nvm install --lts
 
@@ -148,10 +148,10 @@ nvm install --lts
 sudo apt install -y python3-distutils python3-venv python3 python3-pip
 insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
-insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_profile 
+insert_line_only_once 'export PATH="/home/mnthe/.local/bin:$PATH"' ~/.common_profile
 
 # Shell Completion
-kubectl completion zsh > ~/.kube.zsh.completion
+kubectl completion zsh >~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
 # Set personal settings
