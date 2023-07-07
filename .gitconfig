@@ -1,13 +1,13 @@
 [user]
     email = mnthe.dev@gmail.com
     name = JungHun Kim
-    signingkey = B607F4EFB0F5D95E
+#     signingkey = 
 
 [commit]
-    gpgsign = true
+#     gpgsign = true
 
 [tag]
-    gpgsign = true
+#     gpgsign = true
 
 [rerere]
     enabled = true
