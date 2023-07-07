@@ -35,6 +35,7 @@ choco install postman --yes --force
 choco install vault --yes --force
 choco install packer --yes --force
 choco install terraform --yes --force
+choco install openlens --yes --force
 choco install microsoft-windows-terminal --yes --force
 
 # Install Fonts
