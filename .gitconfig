@@ -67,8 +67,12 @@
 [alias]
     s = status -s
     undo = reset --soft HEAD^
-    staall = stash save --include-untracked
-    l = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(red)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+    staash = stash save --include-untracked
+    l = log --graph --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(red)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    pp = "!f() { git pull --rebase && git push $@; }; f"
+    pu = "! [ -z $(git config \"branch.$(git symbolic-ref --short HEAD).merge\") ] && git push -u origin $(git symbolic-ref --short HEAD) || git push"
+    ro =  "!f() { if [ ! -z "$1" ]; then git fetch && git rebase origin/$@; else echo $'No branch specified, doing nothing.'; fi }; f"
+    rpu = "!f() { if [ ! -z "$1" ]; then git fetch && git rebase origin/$@ && git pu; else echo $'No branch specified, doing nothing.'; fi }; f"
 
 [tag]
     sort = version:refname
