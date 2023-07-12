@@ -69,6 +69,7 @@ fi
 sudo apt update
 sudo apt install -y zip unzip software-properties-common
 sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo add-apt-repository -y ppa:git-core/ppa
 sudo apt update
 
 # Install Tools
