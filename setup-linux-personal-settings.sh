@@ -35,7 +35,6 @@ fi
 # Create Workspace & Setup Profile
 cd ~
 mkdir -p ~/workspace/src/github.com/${username} ~/workspace/bin
-touch ~/.common_profile
 insert_line_only_once 'export PATH=$PATH:$HOME/workspace/bin' ~/.common_profile
 insert_line_only_once 'source ~/.common_profile' ~/.bashrc
 
@@ -53,12 +52,6 @@ sed -i 's/ZSH_THEME=\"[a-z]*\"/ZSH_THEME\=\"powerlevel10k\/powerlevel10k\"/' ~/.
 ## Use predefined p10k config
 curl -so ~/.p10k.zsh https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/.oh-my-zsh/.p10k.zsh
 insert_line_only_once '[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh' ~/.zshrc
-
-## Install Keybase
-curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
-sudo apt install -y ./keybase_amd64.deb
-rm -f ./keybase_amd64.deb
-run_keybase
 
 # Aliases
 insert_line_only_once 'alias c=clear' ~/.common_profile

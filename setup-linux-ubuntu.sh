@@ -50,6 +50,8 @@ while (("$#")); do
     esac
 done
 
+touch ~/.common_profile
+
 # Use fastest mirror
 UBUNTU_RELEASE=jammy
 MIRROR_TEXT="# https://askubuntu.com/questions/37753/how-can-i-get-apt-to-use-a-mirror-close-to-me-or-choose-a-faster-mirror
@@ -98,7 +100,7 @@ insert_line_only_once 'source ~/.common_profile' ~/.zshrc
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
-sed -i 's/plugins=([a-z]*)/plugins=(git zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
+sed -i 's/plugins=\(([a-z]*)\)/plugins=($1 zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
 
 ## Install kubectl
 KUBERNETES_VERSION=v1.27.1
@@ -166,8 +168,14 @@ insert_line_only_once 'alias python=python3' ~/.common_profile
 insert_line_only_once 'alias pip=pip3' ~/.common_profile
 insert_line_only_once "export PATH=\"/home/${username}/.local/bin:\$PATH\"" ~/.common_profile
 
+## Install Keybase
+curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
+sudo apt install -y ./keybase_amd64.deb
+rm -f ./keybase_amd64.deb
+run_keybase
+
 # Shell Completion
-kubectl completion zsh >~/.kube.zsh.completion
+kubectl completion zsh > ~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
 # Set personal settings
