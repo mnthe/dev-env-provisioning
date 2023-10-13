@@ -24,6 +24,13 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-windows.ps1'))
 ```
 
+### MacOS
+
+```bash
+# Change your username & put --use-personal-settings flag (omit if you don't want to use) if you want to use repository predefined settings 
+bash -s -- --use-personal-settings --username "mnthe" < <(curl -s https://raw.githubusercontent.com/mnthe/dev-env-provisioning/main/setup-macos.sh)
+```
+
 ## Others
 
 oh-my-posh, oh-my-zsh의 powerlevel10k theme을 쓰기 위해서는 [`Nerd Font`](https://www.nerdfonts.com/) 를 사용해야함
