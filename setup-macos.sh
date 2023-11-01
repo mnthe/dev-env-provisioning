@@ -43,13 +43,13 @@ insert_line_only_once 'alias sed=gsed' ~/.common_profile
   
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-sed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
+/opt/homebrew/bin/gsed -i 's/%c/%~/g' ~/.oh-my-zsh/themes/robbyrussell.zsh-theme
 insert_line_only_once 'source ~/.common_profile' ~/.zshrc
 
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/agkozak/zsh-z ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-z
-sed -i 's/plugins=(\([a-z\-\w]*\))/plugins=(\1 zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc 
+/opt/homebrew/bin/gsed -i 's/plugins=(\([a-z\-\w]*\))/plugins=(\1 zsh-z zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc 
 
 brew install goenv
 insert_line_only_once 'export GOENV_DISABLE_GOPATH=1' ~/.common_profile
@@ -73,6 +73,7 @@ kubectl completion zsh > ~/.kube.zsh.completion
 insert_line_only_once 'source ~/.kube.zsh.completion' ~/.zshrc
 
 brew install --cask 1password
+brew install --cask 1password-cli
 brew install --cask keybase
 
 brew install --cask warp
